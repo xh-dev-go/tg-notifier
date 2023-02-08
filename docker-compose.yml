@@ -1,0 +1,20 @@
+version: "3.9"
+networks:
+  tg-notifier-net:
+    driver: bridge
+services:
+  notifier:
+    build:
+      context: .
+      args:
+        - progress=plain
+    environment:
+      - X_TG-TOKEN={TG TOKEN}
+      - X_KAFKA-HOST={KAFKA HOST}
+      - X_KAFKA-WITH-CREDENTIAL={true if with credential else false}
+      - X_KAFKA-USERNAME={username if with credential}
+      - X_KAFKA-PASSWORD={password if with credential}
+      - X_KAFKA-SOURCE-TOPIC={source topic listening for the message send request}
+      - X_KAFKA-RESULT-TOPIC={result topic for submitting the send result}
+    command: ["--config-with-env"]
+
